@@ -123,7 +123,3 @@ def get_existing_deed_and_update(deed_reference):
         # Make a deed out of new information
 
         # Save the Deed
-
-    # Return updated Deed - assuming same token?
-    result = Deed.query.filter_by(token=str(deed_reference)).first()
-    return json.dumps({"deed": result.deed}), status.HTTP_200_OK
