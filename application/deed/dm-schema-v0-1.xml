@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:dm-application xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" 
+	xmlns:p="http://www.landregistry.gov.uk/XMLSchema/ns/Digital-Services/DM-v0-1" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.landregistry.gov.uk/XMLSchema/ns/Digital-Services/DM-v0-1 dm-schema-v0-1.xsd ">
+	
+  <p:operativeDeed>
+    <p:signatureSlot xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" Id="1">
+      <dsig:SignedInfo>
+				<dsig:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+				<dsig:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+				<dsig:Reference URI="#A1222250902834ATimeStamp">
+					<dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+					<dsig:DigestValue>I35IHWLg9t0TSpzMbXk3/s2XVF8=</dsig:DigestValue>
+				</dsig:Reference>
+				<dsig:Reference URI="#idvalue12">
+					<dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+					<dsig:DigestValue>XJgKooB6eRBeaygsCwmjXzQ3b5s=</dsig:DigestValue>
+				</dsig:Reference>
+			</dsig:SignedInfo>
+			<dsig:SignatureValue>Ww59oKuW4HxvHyVbsO3Kk6ZVA21iWpMIe9biSUV2PfBeZIwiCKpeGu60TYolIHhbUJUu2PM3y/w7g1t6blw2avF02w2JgkL5wFhCkOTc8ZUBSqaifOmAglWuJ1t023jutVkT7/j5gFep9McnJZoXyudRVT1rDUQuqJPz/veNBwYWzudZn7IFPcPBXxKQLHS7Tl9WhDXtqHT9UoD2twEyZYCWxefqyWosR+yDD7md686yshCibKWeDjSLayjnJ/mXvexOR+k57AC/NIIo4X8BmawzpX4VDInQY4a/albc4/EI0gv9Tq/Ie72uOk/xvhwo78kVhPNtWkJdAnlSzKU8Ng==</dsig:SignatureValue>
+			<dsig:KeyInfo>
+				<dsig:X509Data>
+					<dsig:X509Certificate>MIIFijCCBHKgAwIBAgIERkSDgzANBgkqhkiG9w0BAQUFADB8MQswCQYDVQQGEwJnYjERMA8GA1UEChMIMTM1OS4yLjExGjAYBgNVBAoTEUxhbmQgUmVnaXN0cnkgQ0FzMRowGAYDVQQLExFlc2VjdXJpdHkgdGVzdCBjYTEiMCAGA1UECxMZZVNlY3VyaXR5IFRlc3QgSXNzdWluZyBDQTAeFw0wODA5MjQwOTAyMzZaFw0xMDAzMjQwOTMyMzZaMIGbMQswCQYDVQQGEwJHQjERMA8GA1UEChMIMTM1OS4yLjExGDAWBgNVBAoUD1RFU1RVVDIgWzM2ODEyXTEOMAwGA1UECxMFdXNlcnMxTzAVBgNVBAUTDldJbGx5bmlsbHkzMDAwMBgGA1UEAxMRV2lsbGlhbSBJbGx5TmlsbHkwHAYKCZImiZPyLGQBARMOV0lsbHluaWxseTMwMDAwggEgMA0GCSqGSIb3DQEBAQUAA4IBDQAwggEIAoIBAQDVXWm2UA+FIdun3aBIhpOseVV6xId/+oCrp/LwnZyGTanKy0Z/uyrRMbSNdWX47UMNsRFfzUOHPiWIHC39/xEjGBcx0S+mZKodXdC8clsHL/m7TkS30yHhJiNcoZKrtDgscVkXb2IZIPFoFvGusypn05FBlNlF8RYYjmPW8vP1QxQb5tyBWsV542PtHXJ/d7dpH6wSqZrsAoYK/hRwqf4fAPGbRJcnUaag0hAOzfdYmGXUhSjkOjy8RkRi3ABMLapkD4Mch1NNzpPWPxe3S38e9AGetkTz8v6PeaV64nSLhMgO3P5aNCDJ0+Z9tJNfP/s7T91xF8AxqomHwDaAkMGnAgEDo4IB9DCCAfAwCwYDVR0PBAQDAgZAMCsGA1UdEAQkMCKADzIwMDgwOTI0MDkwMjM2WoEPMjAwOTEwMTExMzMyMzZaMBgGCCsGAQUFBwEDBAwwCjAIBgYEAI5GAQEweQYDVR0gBHIwcDBuBgkqhjoAik8BAQMwYTArBggrBgEFBQcCAjAfGh1Vc2VyIE5vdGljZSBUZXh0IFBsYWNlIEhvbGRlcjAyBggrBgEFBQcCARYmaHR0cDovL3BvcnRhbC5sYW5kcmVnaXN0cnkuZ292LnVrL0NQUy8wgd4GA1UdHwSB1jCB0zCB0KCBzaCByqSBjjCBizELMAkGA1UEBhMCZ2IxETAPBgNVBAoTCDEzNTkuMi4xMRowGAYDVQQKExFMYW5kIFJlZ2lzdHJ5IENBczEaMBgGA1UECxMRZXNlY3VyaXR5IHRlc3QgY2ExIjAgBgNVBAsTGWVTZWN1cml0eSBUZXN0IElzc3VpbmcgQ0ExDTALBgNVBAMTBENSTDKGN2h0dHA6Ly9wb3J0YWwubGFuZHJlZ2lzdHJ5Lmdvdi51ay9jcmwvaG1scklzc3VpbmdjMi5jcmwwHwYDVR0jBBgwFoAU1nm5wjonQBTWjIqYawRpDOwOlqYwHQYDVR0OBBYEFKPdCUBmcopA/EVv6tF/GOO/doSVMA0GCSqGSIb3DQEBBQUAA4IBAQCCBvTKyQ+TSKvYau2Gm4j5h9H22Tk+mtLvVAW4AK9emnOmzzEK5+KhKDPHru7TCJOfue+sWVSbrI6giX7raCYkwpguyuDaYTDGLMBnSAXLE0Ybynqz5wcbBs8PDny31RKkS479xhmZGoN2kpe5EBYA2b6V/Uck3mT+tIrTEAVlW64AA7lNeQPfXYUnbyVBGc0JEOvoK5p+YeCQYM5jrRm6IxPnRyYsm2kX/5ZjikYyFlYaaKcw2OR0cfP+R8iEFdjV7yOF8129qg1ir04G1eK2FVBjVr7zQoxNQnZOIXpPpHAeL4zVdAiAdYbSvy9Xi0yf/hNraWc8CAhyV4UYPW6S
+					</dsig:X509Certificate>							
+				</dsig:X509Data>
+			</dsig:KeyInfo>
+			<dsig:Object>
+				<dsig:SignatureProperties>
+					<dsig:SignatureProperty Id="A1222250902834ATimeStamp" Target="#A1222250902834A">
+						<ent:A1222250902834ATimeStamp xmlns:ent="http://www.entrust.com">1222250902735</ent:A1222250902834ATimeStamp>
+					</dsig:SignatureProperty>
+				</dsig:SignatureProperties>
+			</dsig:Object>
+      <p:signatory>
+        <p:forename>p:forename</p:forename>
+        <p:surname>p:surname</p:surname>
+      </p:signatory>
+    </p:signatureSlot>
+    <p:deedData>
+      <p:titleNumber>p:titleNumber</p:titleNumber>
+      <p:propertyDescription>p:propertyDescription</p:propertyDescription>
+      <p:borrowers>
+        <p:borrower>
+          <p:name>
+            <p:forename>p:forename</p:forename>
+            <p:surname>p:surname</p:surname>
+          </p:name>
+          <p:address>p:address</p:address>
+        </p:borrower>
+      </p:borrowers>
+      <p:mdRef>p:mdRef</p:mdRef>
+    </p:deedData>
+  </p:operativeDeed>
+  <p:effectiveDate>p:effectiveDate</p:effectiveDate>
+  <p:authSignature>
+    <dsig:Signature Id="idvalue0">
+      <dsig:SignedInfo Id="idvalue1">
+        <dsig:CanonicalizationMethod Algorithm="http://tempuri.org"/>
+        <dsig:SignatureMethod Algorithm="http://tempuri.org"/>
+        <dsig:Reference Id="idvalue2" Type="http://tempuri.org" URI="http://tempuri.org">
+          <dsig:DigestMethod Algorithm="http://tempuri.org"/>
+          <dsig:DigestValue>MA==</dsig:DigestValue>
+        </dsig:Reference>
+      </dsig:SignedInfo>
+      <dsig:SignatureValue Id="idvalue3">MA==</dsig:SignatureValue>
+    </dsig:Signature>
+  </p:authSignature>
+</p:dm-application>
