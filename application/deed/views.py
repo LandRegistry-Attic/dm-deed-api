@@ -105,8 +105,6 @@ def get_existing_deed_and_update(deed_reference):
     # Firstly check payload coming in is valid:
     new_deed_json = request.get_json()
     borrowerService = BorrowerService()
-    result_borrowers = None
-    borrowerModel = Borrower()
     print ("Hello - New JSON is here")
     error_count, error_message = validate_helper(new_deed_json)
 
@@ -120,7 +118,7 @@ def get_existing_deed_and_update(deed_reference):
         existing_deed_borrowers = result.deed['borrowers']
         i = 0
         for existing_borrower in existing_deed_borrowers:
-            print ("New ID is = " + str(existing_borrower['id']))
+            print ("Existing ID is = " + str(existing_borrower['id']))
             new_deed_json['borrowers'][i]['id'] = existing_borrower['id']
             i = i + 1
 
@@ -166,14 +164,15 @@ def get_existing_deed_and_update(deed_reference):
                     "forename": borrower['forename'],
                     "surname": borrower['surname']
                 }
-            if 'middle_name' in borrower:
-                borrower_json['middle_name'] = borrower['middle_name']
+                if 'middle_name' in borrower:
+                    borrower_json['middle_name'] = borrower['middle_name']
+                json_doc['borrowers'].append(borrower_json)
 
             print ("Borrower Print = " + str(borrower))
 
-            borrower_json["id"] = borrowerService.saveBorrower(borrower, borrower_json["id"])
-            json_doc['borrowers'].append(borrower_json)
+            borrowerService.saveBorrower(borrower, borrower_json["id"])
 
+            print ("FINAL DOC IS " + str(json_doc))
             # Set whole deed to new JSON doc
             result.deed = json_doc
 
