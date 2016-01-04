@@ -3,7 +3,7 @@
     "info": {
         "title": "Deed API",
         "description": "Land Registry Deed API",
-        "version": "1.0.0"
+        "version": "1.0.1"
     },
     "host": "api.landregistry.gov.uk",
     "schemes": [
@@ -54,7 +54,7 @@
         "/deed/{deed_reference}": {
             "get": {
                 "summary": "Deed",
-                "description": "The Deed endpoint returns details of a specific deed based on the unique deed reference.\nThe response includes the Title Number, Property information, Borrower(s) information and deed information.\n",
+                "description": "The Deed endpoint returns details of a specific deed based on the unique deed reference. The response includes the Title Number, Property information, Borrower(s) information and deed information.\n",
                 "produces": [
                     "application/json"
                 ],
@@ -79,6 +79,42 @@
                     },
                     "404": {
                         "description": "Deed not found",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Deed Update",
+                "description": "The post Deed endpoint creates a new deed based on the JSON provide. The reponse will return a URL that can retrieve the created deed. The response includes the Title Number, Property information, Borrower(s) information and deed information.\n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "deed_reference",
+                        "in": "path",
+                        "description": "Unique reference of the deed.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Deed"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A specific deed is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Operative_Deed"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request due to invalid schema. Response will include 1 or more schema errors\n",
                         "schema": {
                             "$ref": "#/definitions/Error"
                         }
