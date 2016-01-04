@@ -159,12 +159,14 @@ def get_existing_deed_and_update(deed_reference):
                 borrower_json["id"] = borrowerService.saveBorrower(borrower)
                 json_doc['borrowers'].append(borrower_json)
 
+            # Set whole deed to new JSON doc
             result.deed = json_doc
 
+            # Save the Deed
             result.save()
             url = request.base_url + str(result.token)
             return url, status.HTTP_200_OK
         except Exception as e:
             print("Database Exception - %s" % e)
             abort(status.HTTP_500_INTERNAL_SERVER_ERROR)
-        # Save the Deed
+
