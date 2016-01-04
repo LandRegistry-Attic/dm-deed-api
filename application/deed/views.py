@@ -148,7 +148,7 @@ def get_existing_deed_and_update(deed_reference):
         try:
             for borrower in new_deed_json['borrowers']:
                 borrower_json = {
-                    "id": "",
+                    "id": borrower['id'],
                     "forename": borrower['forename'],
                     "surname": borrower['surname']
                 }
