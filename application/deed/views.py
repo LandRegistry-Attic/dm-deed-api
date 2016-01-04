@@ -104,6 +104,7 @@ def get_existing_deed_and_update(deed_reference):
 
     # Firstly check payload coming in is valid:
     new_deed_json = request.get_json()
+    borrowerService = BorrowerService()
 
     error_count, error_message = validate_helper(new_deed_json)
 
@@ -117,9 +118,53 @@ def get_existing_deed_and_update(deed_reference):
     if result is None:
         abort(status.HTTP_404_NOT_FOUND)
     else:
-        # And Replace? (New Code goes here)
-        # Set token to current token (not generate)
-        result.deed['token'] = result.token
-        # Make a deed out of new information
 
+        result.deed = new_deed_json
+
+        json_doc = {
+            "title_number": new_deed_json['title_number'],
+            "md_ref": new_deed_json['md_ref'],
+            "borrowers": []
+            }
+
+        # Set token to current token (not generate)
+        result.token = result.token
+
+        # Make a deed out of new information
+        valid_dob_result = _(new_deed_json['borrowers']).chain()\
+            .map(lambda x, *a: x['dob'])\
+            .reduce(valid_dob, True).value()
+
+        if not valid_dob_result:
+            abort(status.HTTP_400_BAD_REQUEST)
+
+        phone_number_list = _(new_deed_json['borrowers']).chain()\
+            .map(lambda x, *a: x['phone_number'])\
+            .value()
+
+        if not is_unique_list(phone_number_list):
+            abort(status.HTTP_400_BAD_REQUEST)
+
+        try:
+            for borrower in new_deed_json['borrowers']:
+                borrower_json = {
+                    "id": "",
+                    "forename": borrower['forename'],
+                    "surname": borrower['surname']
+                }
+
+                if 'middle_name' in borrower:
+                    borrower_json['middle_name'] = borrower['middle_name']
+
+                borrower_json["id"] = borrowerService.saveBorrower(borrower)
+                json_doc['borrowers'].append(borrower_json)
+
+            result.deed = json_doc
+
+            result.save()
+            url = request.base_url + str(result.token)
+            return url, status.HTTP_200_OK
+        except Exception as e:
+            print("Database Exception - %s" % e)
+            abort(status.HTTP_500_INTERNAL_SERVER_ERROR)
         # Save the Deed
