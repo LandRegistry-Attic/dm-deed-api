@@ -1,6 +1,6 @@
 from application import app
 from application.deed.model import Deed
-from unit_tests.helper import DeedHelper, DeedModelMock
+from unit_tests.helper import DeedHelper, DeedModelMock, DeedModelMockRetrieved
 from flask.ext.api import status
 from unit_tests.schema_tests import run_schema_checks
 import unittest
@@ -30,7 +30,7 @@ class TestRoutes(unittest.TestCase):
 
     @mock.patch('application.borrower.model.Borrower.save')
     @mock.patch('application.deed.model.Deed.save')
-    def test_create(self, mock_Borrower, mock_Deed):
+    def test_create_with_invalid(self, mock_Borrower, mock_Deed):
         payload = json.dumps(DeedHelper._invalid_phone_numbers)
         response = self.app.post(self.DEED_ENDPOINT, data=payload,
                                  headers={"Content-Type": "application/json"})
@@ -39,7 +39,7 @@ class TestRoutes(unittest.TestCase):
 
     @mock.patch('application.borrower.model.Borrower.save')
     @mock.patch('application.deed.model.Deed.save')
-    def test_create_with_invalid(self, mock_Borrower, mock_Deed):
+    def test_create(self, mock_Borrower, mock_Deed):
         payload = json.dumps(DeedHelper._json_doc)
         response = self.app.post(self.DEED_ENDPOINT, data=payload,
                                  headers={"Content-Type": "application/json"})
@@ -93,6 +93,27 @@ class TestRoutes(unittest.TestCase):
         response = self.app.delete(self.DEED_ENDPOINT+"borrowers/delete/99999")
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    @mock.patch('application.deed.model.Deed.query', autospec=True)
+    # @mock.patch('application.borrower.model.Borrower.update')
+    def test_update_deed(self, mock_query):
+        mock_instance_response = mock_query.filter_by.return_value
+        mock_instance_response.first.return_value = DeedModelMockRetrieved()
+
+        # Check Deed doesnt contain new data yet
+        response = self.app.get(self.DEED_ENDPOINT + 'AB1235')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse("DN101" in response.data.decode())
+
+        #  Update Deed using PUT
+        # payload = json.dumps(DeedHelper._updated_json_doc)
+        # new_response = self.app.put(self.DEED_ENDPOINT + 'AB1234',
+        #        data=payload, headers={"Content-Type": "application/json"})
+        # self.assertEqual(new_response.status_code, status.HTTP_200_OK)
+        #
+        # # Check Deed is updated by checking GET
+        # response2 = self.app.get(self.DEED_ENDPOINT + 'AB1234')
+        # self.assertTrue("DN101" in response2.data.decode())
 
     def test_schema_checks(self):
         self.assertTrue(run_schema_checks())

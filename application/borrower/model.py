@@ -17,6 +17,9 @@ class Borrower(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def update(self):
+        db.session.commit()
+
     def delete(self, id_):
         borrower = Borrower.query.filter_by(id=id_).first()
 

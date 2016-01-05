@@ -22,6 +22,7 @@ separate table to be used at a later date for matching.
 get     /health                          # test endpoint for the application
 get     /deed/<id_>                      # get a deed with an id in the URL
 post    /deed/                           # Create a deed by posting a json object reflecting the schema
+put     /deed/<id_>                      # Update an existing deed with newly posted json object reflecting the schema
 delete  /borrowers/delete/<borrower_id>  # delete a borrower from the borrower table
 
 ```
@@ -74,7 +75,7 @@ The Deed requires a title number and at least 1 borrower
 ### Deed
 The schema can be found below
 ```
-https://github.com/LandRegistry/dm-deed-api/blob/develop/application/deed/schema.json
+https://github.com/LandRegistry/dm-deed-api/blob/develop/application/deed/deed-api.json
 ```
 Example payload:
 ```
