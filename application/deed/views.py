@@ -7,6 +7,8 @@ import json
 from application.borrower.server import BorrowerService
 from underscore import _
 from application.borrower.model import Borrower
+import logging
+LOGGER = logging.getLogger(__name__)
 
 deed_bp = Blueprint('deed', __name__,
                     template_folder='templates',
@@ -113,9 +115,9 @@ def get_existing_deed_and_update(deed_reference):
     else:
         # If Valid: - Get Current Deed
         result = Deed.query.filter_by(token=str(deed_reference)).first()
-
         #  Get existing borrowers and loop through to get
         #  the ID's that the pasted JSON will overwrite
+        LOGGER.info("Interpreting Existing Borrowers")
         existing_deed_borrowers = result.deed['borrowers']
         for (i, existing_borrower) in enumerate(existing_deed_borrowers):
             updated_deed_json['borrowers'][i]['id'] = existing_borrower['id']
@@ -145,8 +147,9 @@ def get_existing_deed_and_update(deed_reference):
 
         if not is_unique_list(phone_number_list):
             abort(status.HTTP_400_BAD_REQUEST)
-
+        LOGGER.info("New Deed Created")
         try:
+            LOGGER.info("Iterating PUT borrowers into existing borrowers")
             for borrower in updated_deed_json['borrowers']:
                 borrower_json = {
                     "id": borrower['id'],
@@ -157,12 +160,14 @@ def get_existing_deed_and_update(deed_reference):
                     borrower_json['middle_name'] = borrower['middle_name']
                 json_doc['borrowers'].append(borrower_json)
 
+            LOGGER.info("Saving the borrowers")
             borrowerService.saveBorrower(borrower, borrower_json["id"])
 
             result.deed = json_doc
-
+            LOGGER.info("Saving the deed")
             result.save()
             url = request.base_url
+            LOGGER.info("Deed Saved, returned URL = " + url)
             return url, status.HTTP_200_OK
         except Exception as e:
             print("Database Exception - %s" % e)
