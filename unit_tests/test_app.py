@@ -107,8 +107,8 @@ class TestRoutes(unittest.TestCase):
 
         #  Update Deed using PUT
         # payload = json.dumps(DeedHelper._updated_json_doc)
-        # new_response = self.app.put(self.DEED_ENDPOINT + 'AB1234', data=payload,
-        #                             headers={"Content-Type": "application/json"})
+        # new_response = self.app.put(self.DEED_ENDPOINT + 'AB1234',
+        #        data=payload, headers={"Content-Type": "application/json"})
         # self.assertEqual(new_response.status_code, status.HTTP_200_OK)
         #
         # # Check Deed is updated by checking GET

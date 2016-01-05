@@ -2,6 +2,7 @@ class DeedModelMock:
     token = "ABC1234"
     deed = {"title_number": "DN100"}
 
+
 class DeedModelMockRetrieved:
     token = "ABC1235"
     deed = {"title_number": "DN100",
@@ -28,7 +29,7 @@ class DeedModelMockRetrieved:
                     "phone_number": "07502154061"
                 }
             ]
-        }
+            }
 
 
 class DeedHelper:
