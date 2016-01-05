@@ -101,6 +101,14 @@
                         "description": "Unique reference of the deed.",
                         "required": true,
                         "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Deed_Application"
+                        }
                     }
                 ],
                 "tags": [
@@ -108,9 +116,9 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "A specific deed is updated",
+                        "description": "URL to the GET endpoint for the deed is returned on successful update.\n",
                         "schema": {
-                            "$ref": "#/definitions/Operative_Deed"
+                            "type": "string"
                         }
                     },
                     "400": {
@@ -140,8 +148,7 @@
                     "pattern": "^[A-z]+$"
                 },
                 "middle_name": {
-                    "type": "string",
-                    "pattern": "^[A-z]+$"
+                    "type": "string"
                 },
                 "surname": {
                     "type": "string",
