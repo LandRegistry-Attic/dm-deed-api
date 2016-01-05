@@ -2,6 +2,34 @@ class DeedModelMock:
     token = "ABC1234"
     deed = {"title_number": "DN100"}
 
+class DeedModelMockRetrieved:
+    token = "ABC1235"
+    deed = {"title_number": "DN100",
+            "md_ref": "e-MD12344",
+            "borrowers": [
+                {
+                    "id": 1,
+                    "forename": "lisa",
+                    "middle_name": "ann",
+                    "surname": "bloggette",
+                    "gender": "Male",
+                    "address": "test address with postcode, PL14 3JR",
+                    "dob": "23/01/1986",
+                    "phone_number": "07502154062"
+                },
+                {
+                    "id": 2,
+                    "forename": "frank",
+                    "middle_name": "ann",
+                    "surname": "bloggette",
+                    "gender": "Female",
+                    "address": "Test Address With Postcode, PL14 3JR",
+                    "dob": "23/01/1986",
+                    "phone_number": "07502154061"
+                }
+            ]
+        }
+
 
 class DeedHelper:
     _json_doc = {
@@ -107,3 +135,27 @@ class DeedHelper:
             "phone_number": "07502154061"
         }
     ]}
+    _updated_json_doc = {
+        "title_number": "DN101",
+        "md_ref": "e-MD12344",
+        "borrowers": [
+            {
+                "forename": "lisa",
+                "middle_name": "annie",
+                "surname": "bloggette",
+                "gender": "Male",
+                "address": "test address with postcode, PL14 3JR",
+                "dob": "23/01/1986",
+                "phone_number": "07502154062"
+            },
+            {
+                "forename": "frank",
+                "middle_name": "james",
+                "surname": "bloggette",
+                "gender": "Female",
+                "address": "Test Address With Postcode, PL14 3JR",
+                "dob": "23/01/1986",
+                "phone_number": "07502154061"
+            }
+        ]
+    }
