@@ -114,12 +114,12 @@ def get_existing_deed_and_update(deed_reference):
         # If Valid:
         # Get Current Deed
         result = Deed.query.filter_by(token=str(deed_reference)).first()
-        existing_deed_borrowers = result.deed['borrowers']
-        i = 0
-        for existing_borrower in existing_deed_borrowers:
-            new_deed_json['borrowers'][i]['id'] = existing_borrower['id']
-            i = i + 1
 
+        #  Get existing borrowers and loop through to get the ID's that the pasted JSON will overwrite
+        existing_deed_borrowers = result.deed['borrowers']
+        for (i, existing_borrower) in enumerate(existing_deed_borrowers):
+            new_deed_json['borrowers'][i]['id'] = existing_borrower['id']
+            
     if result is None:
         abort(status.HTTP_404_NOT_FOUND)
     else:
