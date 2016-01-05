@@ -113,7 +113,7 @@ def get_existing_deed_and_update(deed_reference):
     if error_count > 0:
         return error_message, status.HTTP_400_BAD_REQUEST
     else:
-        # If Valid: - Get Current Deed
+        # If Valid: Get Current Deed
         result = Deed.query.filter_by(token=str(deed_reference)).first()
         #  Get existing borrowers and loop through to get
         #  the ID's that the pasted JSON will overwrite
