@@ -125,7 +125,6 @@ def get_existing_deed_and_update(deed_reference):
     if result is None:
         abort(status.HTTP_404_NOT_FOUND)
     else:
-
         result.deed = updated_deed_json
         json_doc = {
             "title_number": updated_deed_json['title_number'],
