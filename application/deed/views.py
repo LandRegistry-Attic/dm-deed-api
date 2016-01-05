@@ -105,7 +105,7 @@ def get_existing_deed_and_update(deed_reference):
     # Firstly check payload coming in is valid:
     new_deed_json = request.get_json()
     borrowerService = BorrowerService()
-    print ("Hello - New JSON is here")
+
     error_count, error_message = validate_helper(new_deed_json)
 
     if error_count > 0:
@@ -114,11 +114,9 @@ def get_existing_deed_and_update(deed_reference):
         # If Valid:
         # Get Current Deed
         result = Deed.query.filter_by(token=str(deed_reference)).first()
-        print ("I've even found the old deed!")
         existing_deed_borrowers = result.deed['borrowers']
         i = 0
         for existing_borrower in existing_deed_borrowers:
-            print ("Existing ID is = " + str(existing_borrower['id']))
             new_deed_json['borrowers'][i]['id'] = existing_borrower['id']
             i = i + 1
 
@@ -127,14 +125,11 @@ def get_existing_deed_and_update(deed_reference):
     else:
 
         result.deed = new_deed_json
-        print ("Better start sorting out this new deed!")
         json_doc = {
             "title_number": new_deed_json['title_number'],
             "md_ref": new_deed_json['md_ref'],
             "borrowers": []
             }
-        print ("Starting Deed = " + str(json_doc))
-        # Set token to current token (not generate)
 
         # Make a deed out of new information
         valid_dob_result = _(new_deed_json['borrowers']).chain()\
@@ -151,14 +146,8 @@ def get_existing_deed_and_update(deed_reference):
         if not is_unique_list(phone_number_list):
             abort(status.HTTP_400_BAD_REQUEST)
 
-        print ("Happy with DOB and Mobile!")
-        print ("Deed so far: = " + str(json_doc))
-
-        print ("Current new deed = " + str(new_deed_json))
         try:
             for borrower in new_deed_json['borrowers']:
-                print ("Current Borrower please:" + str(borrower))
-                print ("Result info = " + str(result.deed['borrowers']))
                 borrower_json = {
                     "id": borrower['id'],
                     "forename": borrower['forename'],
@@ -168,20 +157,13 @@ def get_existing_deed_and_update(deed_reference):
                     borrower_json['middle_name'] = borrower['middle_name']
                 json_doc['borrowers'].append(borrower_json)
 
-            print ("Borrower Print = " + str(borrower))
-
             borrowerService.saveBorrower(borrower, borrower_json["id"])
 
-            print ("FINAL DOC IS " + str(json_doc))
-            # Set whole deed to new JSON doc
             result.deed = json_doc
 
-            # Save the Deed
-            print ("Saving Deed Now")
             result.save()
             url = request.base_url
             return url, status.HTTP_200_OK
         except Exception as e:
             print("Database Exception - %s" % e)
             abort(status.HTTP_500_INTERNAL_SERVER_ERROR)
-
