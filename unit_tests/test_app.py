@@ -329,9 +329,9 @@ class TestRoutes(unittest.TestCase):
             return str(uuid.uuid4().hex[:6]).lower()
 
         a = {}
-        for f in range(0,10000):
+        for f in range(0, 9000):
             new_hash = generate_token()
             a[new_hash] = True
 
-        self.assertEqual(10000, len(a))
+        self.assertEqual(9000, len(a))
 
