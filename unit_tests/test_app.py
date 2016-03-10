@@ -10,6 +10,7 @@ from unit_tests.schema_tests import run_schema_checks
 import unittest
 import json
 import mock
+import uuid
 
 
 class TestRoutes(unittest.TestCase):
@@ -322,3 +323,14 @@ class TestRoutes(unittest.TestCase):
                                    "Test Organisation that the charge is to take effect."
 
         self.assertEqual(effective_clause, correct_effective_clause)
+
+    def test_uuid_generation(self):
+        def generate_token():
+            return str(uuid.uuid4().hex[:6]).lower()
+
+        a = {}
+        for f in range(0, 10000):
+            new_hash = generate_token()
+            a[new_hash] = True
+
+        self.assertEqual(10000, len(a))
