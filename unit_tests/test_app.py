@@ -334,4 +334,3 @@ class TestRoutes(unittest.TestCase):
             a[new_hash] = True
 
         self.assertEqual(10000, len(a))
-
