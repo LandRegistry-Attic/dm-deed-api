@@ -1,3 +1,4 @@
+# flake8: noqa
 """Add verify match table
 
 Revision ID: 380e5010015
