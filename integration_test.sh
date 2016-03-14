@@ -16,4 +16,3 @@ DATABASE_URL="${DEED_DATABASE_URI:-postgresql://vagrant:vagrant@localhost:5432/d
 
 # Mortgage document - upserts of md_ref's data
 python3 ./migrations/setup_initial_data/data_importer.py /data/mortgage_document/ $DATABASE_URL mortgage_document
-exit 1
