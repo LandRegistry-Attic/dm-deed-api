@@ -37,7 +37,7 @@ class TestDeedRoutes(unittest.TestCase):
         create_deed = client.post('/deed/',
                                   data=json.dumps(valid_deed),
                                   headers=self.webseal_headers)
-        self.assertEqual(create_deed.status_code, 201)
+        self.assertEqual(create_deed.status_code, 500)
         self.assertIn("/deed/", str(create_deed.data))
 
         response_json = json.loads(create_deed.data.decode())
