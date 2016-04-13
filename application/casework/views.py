@@ -18,10 +18,12 @@ def get_deed(deed_reference):
     result = Deed.query.filter_by(token=str(deed_reference)).first()
 
     if result is None:
+        LOGGER.error("Unable to find deed " + str(deed_reference) + "for Casework")
         abort(status.HTTP_404_NOT_FOUND)
     else:
         try:
             resp = get_document()
+            LOGGER.info("Deed " + str(deed_reference) + "retrieved for Casework")
             return resp
 
         except:
