@@ -25,9 +25,11 @@ def get_deed(deed_reference):
 
     if result is None:
         abort(status.HTTP_404_NOT_FOUND)
+        LOGGER.error("Deed not found with reference: " + str(deed_reference))
     else:
         result.deed['token'] = result.token
         result.deed['status'] = result.status
+        LOGGER.info("Deed found with reference: " + str(deed_reference))
 
     return jsonify({"deed": result.deed}), status.HTTP_200_OK
 
@@ -39,16 +41,18 @@ def get_deeds_status_with_mdref_and_title_number():
 
     if md_ref and title_number:
         deeds_status = Deed.get_deed_status(title_number, md_ref)
+        LOGGER.info("Deed status for e-MD %s and title number %s" % (md_ref, title_number) + " found")
 
         if len(deeds_status) == 0:
             abort(status.HTTP_404_NOT_FOUND)
+            LOGGER.error("Deed status for e-MD %s and title number %s" % (md_ref, title_number) + " not found")
 
         return Response(
             json.dumps(deeds_status),
             status=200,
             mimetype='application/json'
         )
-
+    LOGGER.error("Invalid query for Deed Status lookup")
     return abort(status.HTTP_400_BAD_REQUEST)
 
 
@@ -88,6 +92,7 @@ def create():
                 LOGGER.error("Akuma endpoint 503_SERVICE_UNAVAILABLE")
                 return abort(status.HTTP_503_SERVICE_UNAVAILABLE)
 
+            LOGGER.info("Deed Successfully created by " + str(deed.organisation_name) + " given token " + str(deed.token))
             return jsonify({"path": '/deed/' + str(deed.token)}), status.HTTP_201_CREATED
 
         except:
