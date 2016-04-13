@@ -113,6 +113,7 @@ def delete_borrower(borrower_id):
     if borrower is None:
         abort(status.HTTP_404_NOT_FOUND)
     else:
+        LOGGER.info("Borrower " + borrower_id + " deleted")
         return jsonify({"id": borrower_id}), status.HTTP_200_OK
 
 
@@ -210,6 +211,7 @@ def issue_sms(deed_reference, borrower_token):
 
 @deed_bp.route('/<deed_reference>/make-effective', methods=['POST'])
 def make_effective(deed_reference):
+    LOGGER.info("Deed " + str(deed_reference) + " has been made effective")
     return status.HTTP_200_OK
 
 
@@ -220,6 +222,7 @@ def request_auth_code(deed_reference):
     status_code = issue_sms(deed_reference, request_json['borrower_token'])
 
     if status_code == status.HTTP_200_OK:
+        LOGGER.info("SMS Code sent for deed " + str(deed_reference) + "Borrower: " + request_json['borrower_token'])
         return jsonify({"result": True}), status_code
     else:
         LOGGER.error("Unable to send SMS")
