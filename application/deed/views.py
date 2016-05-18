@@ -26,9 +26,11 @@ def get_deed(deed_reference):
 
     if result is None:
         abort(status.HTTP_404_NOT_FOUND)
+        LOGGER.error("Deed not found with reference: " + str(deed_reference))
     else:
         result.deed['token'] = result.token
         result.deed['status'] = result.status
+        LOGGER.info("Deed found with reference: " + str(deed_reference))
 
     return jsonify({"deed": result.deed}), status.HTTP_200_OK
 
@@ -40,16 +42,18 @@ def get_deeds_status_with_mdref_and_title_number():
 
     if md_ref and title_number:
         deeds_status = Deed.get_deed_status(title_number, md_ref)
+        LOGGER.info("Deed status for e-MD %s and title number %s" % (md_ref, title_number) + " found")
 
         if len(deeds_status) == 0:
             abort(status.HTTP_404_NOT_FOUND)
+            LOGGER.error("Deed status for e-MD %s and title number %s" % (md_ref, title_number) + " not found")
 
         return Response(
             json.dumps(deeds_status),
             status=200,
             mimetype='application/json'
         )
-
+    LOGGER.error("Invalid query for Deed Status lookup")
     return abort(status.HTTP_400_BAD_REQUEST)
 
 
@@ -92,6 +96,7 @@ def create():
 
 
 
+            LOGGER.info("Deed Successfully created by " + str(deed.organisation_name) + " given token " + str(deed.token))
             return jsonify({"path": '/deed/' + str(deed.token)}), status.HTTP_201_CREATED
 
         except:
@@ -112,6 +117,7 @@ def delete_borrower(borrower_id):
     if borrower is None:
         abort(status.HTTP_404_NOT_FOUND)
     else:
+        LOGGER.info("Borrower " + borrower_id + " deleted")
         return jsonify({"id": borrower_id}), status.HTTP_200_OK
 
 
@@ -209,6 +215,7 @@ def issue_sms(deed_reference, borrower_token):
 
 @deed_bp.route('/<deed_reference>/make-effective', methods=['POST'])
 def make_effective(deed_reference):
+    LOGGER.info("Deed " + str(deed_reference) + " has been made effective")
     return status.HTTP_200_OK
 
 
@@ -219,6 +226,7 @@ def request_auth_code(deed_reference):
     status_code = issue_sms(deed_reference, request_json['borrower_token'])
 
     if status_code == status.HTTP_200_OK:
+        LOGGER.info("SMS Code sent for deed " + str(deed_reference) + "Borrower: " + request_json['borrower_token'])
         return jsonify({"result": True}), status_code
     else:
         LOGGER.error("Unable to send SMS")
