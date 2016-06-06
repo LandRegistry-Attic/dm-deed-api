@@ -5,6 +5,7 @@ import unittest
 from application.deed.validate_borrowers import check_borrower_names, _unpack_borrowers, _complement_names, \
       _set_no_duplicates, BorrowerNamesException
 
+#flake8: noqa
 
 PAYLOAD = {
    "title_number": "GR515835",
